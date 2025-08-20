@@ -9,7 +9,6 @@
   <ItemGroup>
     <Folder Include="Enumerators\" />
     <Folder Include="Exeptions\" />
-    <Folder Include="Repositories\" />
   </ItemGroup>
 
   <ItemGroup>

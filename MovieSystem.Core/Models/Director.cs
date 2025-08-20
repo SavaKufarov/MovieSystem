@@ -19,5 +19,16 @@ namespace MovieSystem.Core.Models
         public string Nationality { get; set; }
 
         public List<Movie> Movies { get; set; } = new List<Movie>();
+
+        public Director(int directorId, string name, DateTime birthDate, string nationality)
+        {
+                
+        }
+
+        public Director(int directorId, string name) 
+        {
+            DirectorId = directorId;
+            Name = name;
+        }
     }
 }

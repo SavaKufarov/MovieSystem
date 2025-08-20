@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace MovieSystem.Core.Models
 {
@@ -22,5 +23,16 @@ namespace MovieSystem.Core.Models
         public Director Director { get; set; }
 
         public List<Rating> Ratings { get; set; } = new List<Rating>();
+
+        public Movie(int movieId, string title, string genre, DateTime releaseDate)
+        {
+            
+        }
+
+        public Movie(int movieId, string title)
+        {
+            MovieId = movieId;
+            Title = title;
+        }
     }
 }

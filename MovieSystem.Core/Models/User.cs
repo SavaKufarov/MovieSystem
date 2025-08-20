@@ -24,5 +24,18 @@ namespace MovieSystem.Core.Models
         public DateTime DateOfBirth { get; set; }
 
         public List<Rating> Ratings { get; set; } = new List<Rating>();
+
+        public User(int userId, string firstName, string lastName, string email, DateTime dateOfBirth)
+        {
+            
+        }
+
+        public User(int userId, string firstName, string lastName, string email)
+        {
+            UserId = userId;
+            FirstName = firstName;
+            LastName = lastName;
+            Email = email;
+        }
     }
 }

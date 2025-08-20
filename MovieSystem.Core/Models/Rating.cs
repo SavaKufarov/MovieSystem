@@ -20,5 +20,10 @@ namespace MovieSystem.Core.Models
 
         [Range(1, 5)]
         public int RatingScore { get; set; }
+
+        public Rating(int ratingId, int ratingScore)
+        {
+            
+        }
     }
 }
