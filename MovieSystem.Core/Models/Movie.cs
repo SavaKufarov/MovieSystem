@@ -24,7 +24,7 @@ namespace MovieSystem.Core.Models
 
         public List<Rating> Ratings { get; set; } = new List<Rating>();
 
-        public Movie(int movieId, string title, string genre, DateTime releaseDate)
+        public Movie()
         {
             
         }

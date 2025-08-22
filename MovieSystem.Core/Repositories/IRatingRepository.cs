@@ -11,7 +11,7 @@ namespace MovieSystem.Core.Repositories
     {
         Task<Rating?> GetByIdAsync(int id);
         Task<IEnumerable<Rating>> GetAllAsync();
-        Task AddAsync(Rating rating);
+        Task<Rating> AddAsync(Rating rating);
         Task UpdateAsync(Rating rating);
         Task DeleteAsync(int id);
 

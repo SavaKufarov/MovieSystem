@@ -20,7 +20,7 @@ namespace MovieSystem.Core.Models
 
         public List<Movie> Movies { get; set; } = new List<Movie>();
 
-        public Director(int directorId, string name, DateTime birthDate, string nationality)
+        public Director()
         {
                 
         }

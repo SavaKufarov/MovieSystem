@@ -23,6 +23,12 @@ namespace MovieSystem.Core.Models
 
         public Rating(int ratingId, int ratingScore)
         {
+            RatingId = ratingId;
+            RatingScore = ratingScore;
+        }
+
+        public Rating()
+        {
             
         }
     }

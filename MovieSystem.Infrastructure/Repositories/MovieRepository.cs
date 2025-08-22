@@ -5,11 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using MovieSystem.Core.Models;
+using MovieSystem.Core.Repositories;
 using MovieSystem.Infrastructure.Data;
 
 namespace MovieSystem.Infrastructure.Repositories
 {
-    public class MovieRepository
+    public class MovieRepository : IMovieRepository
     {
         private readonly MovieSystemContext _context;
         public MovieRepository(MovieSystemContext context) => _context = context;
@@ -20,10 +21,12 @@ namespace MovieSystem.Infrastructure.Repositories
         public async Task<IEnumerable<Movie>> GetAllAsync() =>
             await _context.Movies.Include(m => m.Director).Include(m => m.Ratings).ToListAsync();
 
-        public async Task AddAsync(Movie movie)
+        public async Task<Movie> AddAsync(Movie movie)
         {
             await _context.Movies.AddAsync(movie);
             await _context.SaveChangesAsync();
+
+            return movie;
         }
 
         public async Task UpdateAsync(Movie movie)

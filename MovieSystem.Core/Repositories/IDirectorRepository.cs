@@ -11,7 +11,7 @@ namespace MovieSystem.Core.Repositories
     {
         Task<Director> GetByIdAsync(int id);
         Task<IEnumerable<Director>> GetAllAsync();
-        Task AddAsync(Director director);
+        Task<Director> AddAsync(Director director);
         Task UpdateAsync(Director director);
         Task DeleteAsync(int id);
     }
