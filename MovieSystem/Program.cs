@@ -1,9 +1,12 @@
 
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using MovieSystem.Core.Mapping;
 using MovieSystem.Core.Repositories;
 using MovieSystem.Infrastructure.Data;
 using MovieSystem.Infrastructure.Repositories;
 using MovieSystem.Services.Services;
+using AutoMapper;
 
 namespace MovieSystem
 {
@@ -17,8 +20,8 @@ namespace MovieSystem
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddAutoMapper(cfg => cfg.AddProfile<MappingProfile>());
 
-            
             builder.Services.AddDbContext<MovieSystemContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
@@ -31,6 +34,7 @@ namespace MovieSystem
             builder.Services.AddScoped<MovieService>();
             builder.Services.AddScoped<DirectorService>();
             builder.Services.AddScoped<RatingService>();
+
 
 
             var app = builder.Build();

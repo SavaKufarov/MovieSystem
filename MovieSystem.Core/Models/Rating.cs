@@ -13,10 +13,10 @@ namespace MovieSystem.Core.Models
         public int RatingId { get; set; }
 
         public int UserId { get; set; }
-        public User User { get; set; }
+        public User? User { get; set; }
 
         public int MovieId { get; set; }
-        public Movie Movie { get; set; }
+        public Movie? Movie { get; set; }
 
         [Range(1, 5)]
         public int RatingScore { get; set; }

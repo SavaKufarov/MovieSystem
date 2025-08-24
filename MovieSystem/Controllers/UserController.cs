@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using MovieSystem.Core.DTOs;
+using MovieSystem.Core.DTOs.MovieSystem.Core.DTOs;
 using MovieSystem.Core.Models;
 using MovieSystem.Services.Services;
 
@@ -9,39 +12,51 @@ namespace MovieSystem.Controllers
     public class UserController : ControllerBase
     {
         private readonly UserService _userService;
+        private readonly IMapper _mapper;
 
-        public UserController(UserService userService)
+        public UserController(UserService userService, IMapper mapper)
         {
             _userService = userService;
+            _mapper = mapper;
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll() =>
-            Ok(await _userService.GetAllUsersAsync());
-
-        [HttpGet("{id}")]
-        public async Task<IActionResult> Get(int id) =>
-            Ok(await _userService.GetUserByIdAsync(id));
-
-        [HttpPost]
-        public async Task<IActionResult> Create(User user)
+        public async Task<ActionResult<IEnumerable<UserDto>>> GetAll()
         {
-            await _userService.CreateUserAsync(user);
-            return Ok();
+            var users = await _userService.GetAllAsync(); 
+            return Ok(_mapper.Map<IEnumerable<UserDto>>(users));
         }
 
-        [HttpPut]
-        public async Task<IActionResult> Update(User user)
+        [HttpGet("{id}")]
+        public async Task<ActionResult<UserDto>> GetById(int id)
         {
-            await _userService.UpdateUserAsync(user);
-            return Ok();
+            var user = await _userService.GetByIdAsync(id);
+            if (user == null) return NotFound();
+            return Ok(_mapper.Map<UserDto>(user));
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Create(UserDto dto)
+        {
+            var user = _mapper.Map<User>(dto);
+            await _userService.CreateAsync(user);
+            return CreatedAtAction(nameof(GetById), new { id = user.UserId }, _mapper.Map<UserDto>(user));
+        }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult> Update(int id, UserDto dto)
+        {
+            if (id != dto.UserId) return BadRequest();
+            var user = _mapper.Map<User>(dto);
+            await _userService.UpdateAsync(user);
+            return NoContent();
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
-            await _userService.DeleteUserAsync(id);
-            return Ok();
+            await _userService.DeleteAsync(id);
+            return NoContent();
         }
     }
 }

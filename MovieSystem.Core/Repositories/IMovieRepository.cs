@@ -14,5 +14,9 @@ namespace MovieSystem.Core.Repositories
         Task<Movie> AddAsync(Movie movie);
         Task UpdateAsync(Movie movie);
         Task DeleteAsync(int id);
+
+        Task<IEnumerable<object>> GetMoviesRatedByUserAsync(int userId);
+        Task<IEnumerable<object>> GetMoviesByDirectorWithAvgRatingAsync(int directorId);
+        Task<IEnumerable<object>> GetTopRatedMoviesAsync(int topN);
     }
 }

@@ -12,14 +12,14 @@ namespace MovieSystem.Services.Services
             _userRepo = userRepository;
         }
 
-        public Task<IEnumerable<User>> GetAllUsersAsync() => _userRepo.GetAllAsync();
+        public Task<IEnumerable<User>> GetAllAsync() => _userRepo.GetAllAsync();
 
-        public Task<User> GetUserByIdAsync(int id) => _userRepo.GetByIdAsync(id);
+        public Task<User> GetByIdAsync(int id) => _userRepo.GetByIdAsync(id);
 
-        public Task CreateUserAsync(User user) => _userRepo.AddAsync(user);
+        public Task CreateAsync(User user) => _userRepo.AddAsync(user);
 
-        public Task UpdateUserAsync(User user) => _userRepo.UpdateAsync(user);
+        public Task UpdateAsync(User user) => _userRepo.UpdateAsync(user);
 
-        public Task DeleteUserAsync(int id) => _userRepo.DeleteAsync(id);
+        public Task DeleteAsync(int id) => _userRepo.DeleteAsync(id);
     }
 }

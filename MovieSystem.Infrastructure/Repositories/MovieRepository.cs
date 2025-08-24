@@ -44,5 +44,47 @@ namespace MovieSystem.Infrastructure.Repositories
                 await _context.SaveChangesAsync();
             }
         }
+
+        public async Task<IEnumerable<object>> GetMoviesRatedByUserAsync(int userId)
+        {
+            return await _context.Ratings
+                .Where(r => r.UserId == userId)
+                .Include(r => r.Movie)
+                .Select(r => new
+                {
+                    r.Movie.MovieId,
+                    r.Movie.Title,
+                    r.Movie.Genre,
+                    r.RatingScore
+                })
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<object>> GetMoviesByDirectorWithAvgRatingAsync(int directorId)
+        {
+            return await _context.Movies
+                .Where(m => m.DirectorId == directorId)
+                .Select(m => new
+                {
+                    m.MovieId,
+                    m.Title,
+                    AverageRating = m.Ratings.Average(r => (double?)r.RatingScore) ?? 0
+                })
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<object>> GetTopRatedMoviesAsync(int topN)
+        {
+            return await _context.Movies
+                .Select(m => new
+                {
+                    m.MovieId,
+                    m.Title,
+                    AverageRating = m.Ratings.Average(r => (double?)r.RatingScore) ?? 0
+                })
+                .OrderByDescending(m => m.AverageRating)
+                .Take(topN)
+                .ToListAsync();
+        }
     }
 }

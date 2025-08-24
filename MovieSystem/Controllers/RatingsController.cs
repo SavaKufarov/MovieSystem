@@ -1,56 +1,61 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using MovieSystem.Core.DTOs;
 using MovieSystem.Core.Models;
-using MovieSystem.Services;
 using MovieSystem.Services.Services;
 
 namespace MovieSystem.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class RatingsController : ControllerBase
+    public class RatingController : ControllerBase
     {
-        private readonly RatingService _service;
-        public RatingsController(RatingService service) => _service = service;
+        private readonly RatingService _ratingService;
+        private readonly IMapper _mapper;
+
+        public RatingController(RatingService ratingService, IMapper mapper)
+        {
+            _ratingService = ratingService;
+            _mapper = mapper;
+        }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll() =>
-            Ok(await _service.GetAllAsync());
+        public async Task<ActionResult<IEnumerable<RatingDto>>> GetAll()
+        {
+            var ratings = await _ratingService.GetAllAsync();
+            return Ok(_mapper.Map<IEnumerable<RatingDto>>(ratings));
+        }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(int id)
+        public async Task<ActionResult<RatingDto>> GetById(int id)
         {
-            var rating = await _service.GetByIdAsync(id);
-            return rating == null ? NotFound() : Ok(rating);
+            var rating = await _ratingService.GetByIdAsync(id);
+            if (rating == null) return NotFound();
+            return Ok(_mapper.Map<RatingDto>(rating));
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Rating rating)
+        public async Task<ActionResult> Create(RatingDto dto)
         {
-            await _service.AddAsync(rating);
-            return CreatedAtAction(nameof(GetById), new { id = rating.RatingId }, rating);
+            var rating = _mapper.Map<Rating>(dto);
+            await _ratingService.AddAsync(rating);
+            return CreatedAtAction(nameof(GetById), new { id = rating.RatingId }, _mapper.Map<RatingDto>(rating));
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, Rating rating)
+        public async Task<ActionResult> Update(int id, RatingDto dto)
         {
-            if (id != rating.RatingId) return BadRequest();
-            await _service.UpdateAsync(rating);
+            if (id != dto.RatingId) return BadRequest();
+            var rating = _mapper.Map<Rating>(dto);
+            await _ratingService.UpdateAsync(rating);
             return NoContent();
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
-            await _service.DeleteAsync(id);
+            await _ratingService.DeleteAsync(id);
             return NoContent();
         }
-
-        [HttpGet("movie/{movieId}")]
-        public async Task<IActionResult> GetRatingsForMovie(int movieId) =>
-            Ok(await _service.GetRatingsForMovieAsync(movieId));
-
-        [HttpGet("user/{userId}")]
-        public async Task<IActionResult> GetRatingsByUser(int userId) =>
-            Ok(await _service.GetRatingsByUserAsync(userId));
     }
 }

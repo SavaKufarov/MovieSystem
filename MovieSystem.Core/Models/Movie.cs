@@ -20,7 +20,7 @@ namespace MovieSystem.Core.Models
         public DateTime ReleaseDate { get; set; }
 
         public int DirectorId { get; set; }
-        public Director Director { get; set; }
+        public Director? Director { get; set; }
 
         public List<Rating> Ratings { get; set; } = new List<Rating>();
 
