@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using MovieSystem.Core.DTOs.MovieSystem.Core.DTOs;
 using MovieSystem.Core.Models;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MovieSystem.Services.Validators
 {
-    public class UserValidator : AbstractValidator<User>
+    public class UserValidator : AbstractValidator<CreateUserDto>
     {
         public UserValidator()
         {

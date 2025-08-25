@@ -36,7 +36,7 @@ namespace MovieSystem.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Create(UserDto dto)
+        public async Task<ActionResult> Create(CreateUserDto dto)
         {
             var user = _mapper.Map<User>(dto);
             await _userService.CreateAsync(user);

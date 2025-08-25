@@ -18,7 +18,6 @@ namespace MovieSystem.Core.Models
         public int MovieId { get; set; }
         public Movie? Movie { get; set; }
 
-        [Range(1, 5)]
         public int RatingScore { get; set; }
 
         public Rating(int ratingId, int ratingScore)

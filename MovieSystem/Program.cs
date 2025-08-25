@@ -7,6 +7,8 @@ using MovieSystem.Infrastructure.Data;
 using MovieSystem.Infrastructure.Repositories;
 using MovieSystem.Services.Services;
 using AutoMapper;
+using FluentValidation.AspNetCore;
+using MovieSystem.Services.Validators;
 
 namespace MovieSystem
 {
@@ -16,11 +18,19 @@ namespace MovieSystem
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            
+
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
             builder.Services.AddAutoMapper(cfg => cfg.AddProfile<MappingProfile>());
+
+            builder.Services.AddControllers()
+            .AddFluentValidation(config =>
+            {
+
+                config.RegisterValidatorsFromAssemblyContaining<RatingValidator>();
+            });
 
             builder.Services.AddDbContext<MovieSystemContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));

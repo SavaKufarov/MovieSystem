@@ -1,4 +1,6 @@
 ﻿using FluentValidation;
+using FluentValidation.AspNetCore;
+using MovieSystem.Core.DTOs;
 using MovieSystem.Core.Models;
 using System;
 using System.Collections.Generic;
@@ -8,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace MovieSystem.Services.Validators
 {
-    public class RatingValidator : AbstractValidator<Rating>
+    public class RatingValidator : AbstractValidator<CreateRatingDto>
     {
         public RatingValidator()
         {

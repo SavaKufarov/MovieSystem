@@ -35,7 +35,7 @@ namespace MovieSystem.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Create(RatingDto dto)
+        public async Task<ActionResult> Create(CreateRatingDto dto)
         {
             var rating = _mapper.Map<Rating>(dto);
             await _ratingService.AddAsync(rating);
