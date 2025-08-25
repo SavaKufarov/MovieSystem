@@ -7,9 +7,18 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Configurations\" />
-    <Folder Include="Enumerators\" />
-    <Folder Include="Factories\" />
+    <Compile Remove="Configurations\**" />
+    <Compile Remove="Enumerators\**" />
+    <Compile Remove="Factories\**" />
+    <EmbeddedResource Remove="Configurations\**" />
+    <EmbeddedResource Remove="Enumerators\**" />
+    <EmbeddedResource Remove="Factories\**" />
+    <None Remove="Configurations\**" />
+    <None Remove="Enumerators\**" />
+    <None Remove="Factories\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Migrations\" />
   </ItemGroup>
 

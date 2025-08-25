@@ -7,8 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Enumerators\" />
-    <Folder Include="Exeptions\" />
+    <Compile Remove="Enumerators\**" />
+    <Compile Remove="Exeptions\**" />
+    <EmbeddedResource Remove="Enumerators\**" />
+    <EmbeddedResource Remove="Exeptions\**" />
+    <None Remove="Enumerators\**" />
+    <None Remove="Exeptions\**" />
   </ItemGroup>
 
   <ItemGroup>

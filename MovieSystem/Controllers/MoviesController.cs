@@ -2,19 +2,18 @@
 using Microsoft.AspNetCore.Mvc;
 using MovieSystem.Core.DTOs;
 using MovieSystem.Core.Models;
-using MovieSystem.Services;
 using MovieSystem.Services.Services;
 
 namespace MovieSystem.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class MovieController : ControllerBase
+    public class MoviesController : ControllerBase
     {
         private readonly MovieService _movieService;
         private readonly IMapper _mapper;
 
-        public MovieController(MovieService movieService, IMapper mapper)
+        public MoviesController(MovieService movieService, IMapper mapper)
         {
             _movieService = movieService;
             _mapper = mapper;
@@ -36,7 +35,7 @@ namespace MovieSystem.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Create(MovieDto dto)
+        public async Task<ActionResult> Create(CreateMovieDto dto)
         {
             var movie = _mapper.Map<Movie>(dto);
             await _movieService.AddAsync(movie);

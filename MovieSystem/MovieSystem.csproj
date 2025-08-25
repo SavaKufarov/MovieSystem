@@ -7,6 +7,25 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Enumerators\**" />
+    <Compile Remove="Mappers\**" />
+    <Compile Remove="Middlewares\**" />
+    <Compile Remove="Models\**" />
+    <Content Remove="Enumerators\**" />
+    <Content Remove="Mappers\**" />
+    <Content Remove="Middlewares\**" />
+    <Content Remove="Models\**" />
+    <EmbeddedResource Remove="Enumerators\**" />
+    <EmbeddedResource Remove="Mappers\**" />
+    <EmbeddedResource Remove="Middlewares\**" />
+    <EmbeddedResource Remove="Models\**" />
+    <None Remove="Enumerators\**" />
+    <None Remove="Mappers\**" />
+    <None Remove="Middlewares\**" />
+    <None Remove="Models\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="15.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.8" />
@@ -15,13 +34,6 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Enumerators\" />
-    <Folder Include="Mappers\" />
-    <Folder Include="Middlewares\" />
-    <Folder Include="Models\" />
   </ItemGroup>
 
   <ItemGroup>

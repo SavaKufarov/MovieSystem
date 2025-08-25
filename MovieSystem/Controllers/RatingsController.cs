@@ -8,12 +8,12 @@ namespace MovieSystem.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class RatingController : ControllerBase
+    public class RatingsController : ControllerBase
     {
         private readonly RatingService _ratingService;
         private readonly IMapper _mapper;
 
-        public RatingController(RatingService ratingService, IMapper mapper)
+        public RatingsController(RatingService ratingService, IMapper mapper)
         {
             _ratingService = ratingService;
             _mapper = mapper;
@@ -56,6 +56,20 @@ namespace MovieSystem.Controllers
         {
             await _ratingService.DeleteAsync(id);
             return NoContent();
+        }
+
+        [HttpGet("movie/{movieId}")]
+        public async Task<IActionResult> GetRatingsForMovie(int movieId)
+        {
+            var ratings = await _ratingService.GetRatingsForMovieAsync(movieId);
+            return Ok(_mapper.Map<IEnumerable<RatingDto>>(ratings));
+        }
+
+        [HttpGet("user/{userId}")]
+        public async Task<IActionResult> GetRatingsByUser(int userId)
+        {
+            var ratings = await _ratingService.GetRatingsByUserAsync(userId);
+            return Ok(_mapper.Map<IEnumerable<RatingDto>>(ratings));
         }
     }
 }

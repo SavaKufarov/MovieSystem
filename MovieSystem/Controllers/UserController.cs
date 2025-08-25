@@ -9,12 +9,12 @@ namespace MovieSystem.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class UserController : ControllerBase
+    public class UsersController : ControllerBase
     {
         private readonly UserService _userService;
         private readonly IMapper _mapper;
 
-        public UserController(UserService userService, IMapper mapper)
+        public UsersController(UserService userService, IMapper mapper)
         {
             _userService = userService;
             _mapper = mapper;
@@ -23,7 +23,7 @@ namespace MovieSystem.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<UserDto>>> GetAll()
         {
-            var users = await _userService.GetAllAsync(); 
+            var users = await _userService.GetAllAsync();
             return Ok(_mapper.Map<IEnumerable<UserDto>>(users));
         }
 
